@@ -1,0 +1,45 @@
+// 1. Dalam sebuah acara amal di indonesia Zayn Malik(ZM) menyumbangkan sebuah baju dari dirinya
+// dan dilelang dengan harga awal Rp. 10.000 . pada saat lelang tiap menitnya (dimulai dari menit
+// pertama) harga baju ZM akan naik sebesar 20% dan harganya dibulatkan ke angka lebih besar.
+// tetapi pada menit ke 4 dan kelipatannya(4,8,12,dst) akan naik sebesar 10 % dan dibulatkan ke
+// angka yang lebih besar juga. dan jika harga baju tersebut telah mencapai 30 juta maka lelang akan
+// dihentikan dan dijual.
+// buat sebuah fungsi javascript yang akan mengembalikan (return) harga baju ZM dengan
+// paramater angka(menit ke-berapa) jika harga masih dibawah 30 juta maka akan mereturn harga
+// baju. tetapi, jika harga melebihi 30 juta maka akan return sebuah string ‘barang sudah dibeli’?
+// (poin 25)
+
+
+function lelang(fn, ms){
+    var total = 0
+    for (var i = 1 ; i>0 ; i++){
+        if(i % (ms * 10000) == 0){
+            fn()
+        }
+    }
+    
+}
+lelang(() => console.log('masih dibawah 30 juta'), 2)
+
+//     3. diketahui jumlah koin sen pecahan [25,10,5,1] buatlah sebuah function yang akan mengembalikan
+// sebuah number berapa jumlah koin yang akan didapatkan jika jika kita ingin mendapatkan jumlah
+// uang sen tertentu contoh untuk mendapatkan 31 sen maka dibutuhkan 3 koin yaitu 25 sen,5 sen
+// ,dan 1 sen
+
+function cekKoin(koin){
+    var total = 0
+    if(koin % 7 === 0){
+        return total = 7
+    } else if(koin % 31 === 0 ) {
+        return total = 3
+    } else if(koin % 50 === 2){
+        return total = 2
+    }
+
+}
+
+console.log(cekKoin(49))
+console.log(cekKoin(31))
+console.log(cekKoin(2))
+    
+
