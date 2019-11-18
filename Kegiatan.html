@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+    <table>
+    <thead>
+        <tr>
+                <td>ID</td>
+                <td>Kegiatan</td>
+                <td>Hari</td>
+                <td>Poster</td>
+                <td>Action</td>
+        </tr>
+    </thead>
+    <tbody id="menu">
+        
+    </tbody>
+    <br>
+</table>
+
+   
+</center>
+
+    
+</body>
+<center>
+        <button value="Log Out" onclick="logOut()">Log Out</button>
+    </center>
+<script>
+
+class Product{
+        constructor(kegiatan, hari, poster){
+            this.kegiatan = kegiatan,
+            this.hari = hari,
+            this.poster = poster
+        }
+    }
+    var menu = [
+                new Product('Lari', 'Senin', 'https://thumb.viva.co.id/media/frontend/thumbs3/2018/01/03/5a4c691dcc317-ini-bedanya-lari-indoor-dan-outdoor-yang-perlu-anda-tahu_665_374.jpg'),
+                new Product('estafet', 'Selasa', 'https://moondoggiesmusic.com/wp-content/uploads/2019/07/Teknik-Lari-Estafet.png')            
+            ]
+
+    function printMenu(){
+        var output = ``
+        for(var i = 0 ; i< menu.length ; i++){
+            output += 
+            `
+            <tr>
+                <td>${i +1}</td>
+                <td>${menu[i].kegiatan}</td>
+                <td>${menu[i].hari}</td>
+                <td><img src=${menu[i].poster} alt=${menu[i].kegiatan} width="100px"></td>
+                <td>
+                
+            </tr>
+            `
+        }
+        return document.getElementById("menu").innerHTML = output 
+    }
+
+    function deleteProduct(index){
+        menu.splice(index, 1)
+        printMenuAdmin()
+    }
+
+
+    function logOut(){
+      window.location.href = "Ujian jc11 soal no2.html"
+    }
+
+    printMenu()
+</script>
+</html>
