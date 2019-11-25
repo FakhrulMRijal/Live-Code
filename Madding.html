@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  table td, table th {
+    padding: 8px;
+    border-collapse: border;
+    }
+</style>
+<body>
+<center>
+  <h3>Madding</h3>
+  <br>
+  <h4>Username</h4>
+  <input type="text" id="uname">
+  <br>
+  <h4>Password</h4>
+  <input type="text" id="pwd">
+  <br>
+  <button value="Login" onclick="printAdmin()">Login</button>
+  <table>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Kegiatan</th>
+        <th>Hari</th>
+        <th>Poster</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+  </table>
+
+  <table>
+     <tbody id="menu">
+        
+     </tbody>
+    </table>
+  <div id="logOut">
+
+  </div>
+</center>
+
+</body>
+<script>
+ class Kegiatan{
+   constructor(kegiatan, hari, poster){
+     this.kegiatan = kegiatan,
+     this.hari = hari,
+     this.poster = poster
+   }
+ }
+
+var menu = [
+    new Kegiatan('lari ', 'senin', 'https://asset.kompas.com/crops/Sp9lxS7MVvVD4OYvuYEsGAlFAx0=/0x0:1000x667/750x500/data/photo/2019/03/04/3343093977.jpg'),
+    new Kegiatan('marathon ', 'selasa', 'https://thenypost.files.wordpress.com/2019/04/boston_marathon.jpg?quality=90&strip=all&w=618&h=410&crop=1')
+]
+
+class Username{
+  constructor(username, password){
+    this.username = username,
+    this.password = password
+  }
+}
+
+var user =[
+        {
+            username: 'lian',
+            password: 'asd123',
+            role: 'user'
+        },
+        {
+            username: 'admin',
+            password: 'admin',
+            role: 'admin'
+        }
+    ]
+
+    function printAdmin(){
+      var uname = document.getElementById("uname").value
+      var pwd = document.getElementById("pwd").value
+      var output = ''
+      for(i = 0; i < user.length; i++){
+        if(uname === user[0].username && pwd === user[0].password){
+            return printMenu()
+      } else if(uname === user[1].username && pwd === user[1].password ){
+            return printMenuAdmin()
+        } else {
+          alert('Password Salah')
+        }
+        
+    }
+  }
+
+  function printMenu(){
+        var output = ``
+        for(var i = 0 ; i< menu.length ; i++){
+            output += 
+            `
+            <tr>
+                <td>${i +1}</td>
+                <td>${menu[i].kegiatan}</td>
+                <td>${menu[i].hari}</td>
+                <td><img src=${menu[i].poster} alt=${menu[i].kegiatan} width="100px"></td>
+            </tr>
+            `
+        }
+        return document.getElementById("menu").innerHTML = output + 
+        `
+        <center>
+        <input type="button" onclick="logOut()" value="Log Out">
+        </center>
+        `
+    }
+ 
+  function printMenuAdmin(){
+    var output = ''
+    for(var i = 0 ; i< menu.length ; i++){
+      output +=  `
+            <tr>
+                <td>${i +1}</td>
+                <td>${menu[i].kegiatan}</td>
+                <td>${menu[i].hari}</td>
+                <td><img src=${menu[i].poster} alt=${menu[i].kegiatan} width="100px"></td>
+                <td>
+                    <input type="button" value="Edit" onClick="editKegiatan(${i})"> 
+                    <br>       
+                    <input type="button" value="Delete" onClick="deleteKegiatan(${i})">
+                </td>
+                <br>
+            </tr>  
+            `
+        }
+        return document.getElementById('menu').innerHTML = output +
+        `
+            <tr>
+                <td></td>    
+                <td><input type="text" id="newKegiatan" placeholder="kegiatan"></td>    
+                <td>
+                  <select name="day" id="newHari">
+                  <option value="Senin">Senin</option>
+                  <option value="Selasa">Selasa</option>
+                  <option value="Rabu">Rabu</option>
+                  <option value="Kamis">Kamis</option>
+                  <option value="Jumat">Jumat</option>
+                  <option value="Sabtu">Sabtu</option>
+                  <option value="Minggu">Minggu</option>
+                </td>
+
+                <td><input type="text" id="newImage" placeholder="Add link image"></td>    
+                <td><input type="button" value="Add Kegiatan" onclick="addNewKegiatan()"></td> 
+            </tr>
+            <center>
+            <input type="button" onclick="logOut()" value="Log Out">
+            </center>
+        `
+    }
+
+    function editKegiatan(index){
+        document.getElementById("menu").rows[index].innerHTML = `
+                <td></td>    
+                <td><input type="text" id="editKegiatan" placeholder="Input new kegiatan"></td>    
+                <td><select name="day" id="editHari">
+                  <option value="Senin">Senin</option>
+                  <option value="Selasa">Selasa</option>
+                  <option value="Rabu">Rabu</option>
+                  <option value="Kamis">Kamis</option>
+                  <option value="Jumat">Jumat</option>
+                  <option value="Sabtu">Sabtu</option>
+                  <option value="Minggu">Minggu</option>
+                </td>    
+                <td><input type="text " id="editImage" placeholder="Input new image"></td>    
+                <td><input type="button" value="Yes" onclick="confirmKegiatan(${index})"></td>   
+                <td><input type="button" value="no" onclick="printMenuAdmin()"></td>    
+        `
+    }
+    function confirmKegiatan(index){
+        var newKegiatan = document.getElementById("editKegiatan").value
+        console.log(newKegiatan)
+        var newHari = document.getElementById("editHari").value
+        console.log(newHari)
+        var newImage = document.getElementById("editImage").value
+        console.log(newImage)
+
+
+        if(newKegiatan === ''){
+            newKegiatan = menu[index].kegiatan
+        }
+        if(newHari === ''){
+            newHari = menu[index].nama
+        }
+        if(newImage === ''){
+            newImage = menu[index].poster
+        }
+        menu[index].kegiatan = newKegiatan
+        menu[index].hari = newHari
+        menu[index].poster = newImage
+        printMenuAdmin()
+    }  
+    
+  function addNewKegiatan(){
+  
+        var newKegiatan = document.getElementById('newKegiatan').value;
+        var newHari = document.getElementById('newHari').value;
+        var newImage = document.getElementById('newImage').value;
+        if(newKegiatan === '' || newHari === '' || newImage === ''){
+            return alert('Tolong isi Kegiatan, Hari, dan Image')
+        }else{
+            menu.push(new Kegiatan(newKegiatan, newHari, newImage))
+            printMenuAdmin()
+        }
+    }
+
+  function deleteKegiatan(index){
+    document.getElementById("menu").rows[index].innerHTML = `
+                <td>${i+1}</td>    
+                <td>${menu[i].kegiatan}</td>    
+                <td>${menu[i].hari}</td>    
+                <td><img src=${menu[i].poster} alt=${menu[i].kegiatan} width="100px"></td>    
+                <td><input type="button" value="Yes" onclick="confirmDelete(${index})"></td>   
+                <td><input type="button" value="no" onclick="printMenuAdmin()"></td>    
+        `
+  }
+
+  function confirmDelete(index){
+    menu.splice(index, 1)
+    printMenuAdmin()
+  }
+
+  function logOut(){
+    return document.getElementById("logOut").innerHTML = window.location.href = "Madding.html"
+  }
+  
+</script>
+</html>   
